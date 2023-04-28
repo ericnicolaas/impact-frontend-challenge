@@ -68,7 +68,8 @@ export const Container = () => {
 		"All locations",
 		"Melbourne",
 		"Sydney",
-		"Adelaide"
+		"Adelaide",
+		"Auckland"
 	];
 	const handleLocationChange = (option) => {
 		if (option === "All locations") {
@@ -81,6 +82,7 @@ export const Container = () => {
 	const [provider, setProvider] = useState('');
 	const providerOptions = [
 		"All providers",
+		"Amber",
 		"Momentum",
 		"Diamond",
 		"Powershop",
@@ -97,11 +99,13 @@ export const Container = () => {
 	}
 
 	useEffect(() => {
-		return async () => {
+		const updateData = async () => {
 			const response = await fetch(`https://impact-code-test.fly.dev/fetch-data?page=${page}&size=10&search=${search}&location=${location}&provider=${provider}&startDateFrom=${dates[0]}&startDateTo=${dates[1]}`)
 			const jsonData = await response.json();
 			setData(jsonData);
 		}
+		updateData()
+			.catch(console.error);
 	}, [page, search, dates, location, provider]);
 
 	return (
